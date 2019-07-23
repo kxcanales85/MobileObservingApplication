@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content%}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/index">Resumen</a></li>
+            <li class="active"><a href="{{url_for('missions')}}">Misiones</a></li>
+            <li><a href="#">Reportes</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="{{url_for('add_new_user')}}">Registrar usuario</a></li>
+            <li><a href="{{url_for('add_new_phone')}}">Registrar dispositivo móvil</a></li>
+            <li><a href="">Registrar nuevo mapa</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == 'message' %}
+                  <div class="alert alert-warning" role="alert">
+                {% else %}
+                  <div class="alert alert-{{ category }}" role="alert">
+                {% endif %}
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        </div>
+        <div class="container">
+            <h2>Historial de misiones</h2>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12" style="">
+                    <div class="panel panel-default list-group-panel">
+                        <div class="panel-body">
+                            <ul class="list-group list-group-header">
+                                <li class="list-group-item list-group-body">
+                                    <div class="row">
+                                        <div class="col-xs-6 text-left">Nombre</div>
+                                        <div class="col-xs-3">Fecha creación</div>
+                                        <div class="col-xs-3">Estado</div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-group list-group-body" style="">
+                            {% if active_missions %}
+                                {% for mission in active_missions %}
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-xs-6 text-left" style=" "> <a href="/mission/{{mission['NAME_MISSION']}}"><span class="glyphicon glyphicon-file" aria-hidden="true" href="#"></span> {{mission['NAME_MISSION']}} </a> </div>
+                                            <div class="col-xs-3" style=""> {{mission['DATE_CREATED_MISSION']}} </div>
+                                            <div class="col-xs-3" style="">
+                                            {% if mission['IS_ACTIVE_MISSION'] == 1 %} 
+                                                Activa
+                                            {% else %}
+                                                No activa
+                                            {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <center><h4> Aún no ha creado ninguna misión </h4></center>
+                            {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{url_for('create_mission')}}" class="btn btn-primary">Iniciar nueva misión</a>
+        </div>
+
+      </div>
+    </div>
+{% endblock %}

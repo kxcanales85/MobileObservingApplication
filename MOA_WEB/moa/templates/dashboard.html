@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="/index">Resumen <span class="sr-only">(current)</span></a></li>
+          <li><a href="{{url_for('missions')}}">Misiones</a></li>
+          <li><a href="#">Reportes</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="{{url_for('add_new_user')}}">Registrar usuario</a></li>
+          <li><a href="{{url_for('add_new_phone')}}">Registrar dispositivo móvil</a></li>
+          <li><a href="">Registrar nuevo mapa</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="row placeholders">
+          <div class="col-xs-6 placeholder">
+            <canvas id="chart" width="300" height="300"></canvas>
+            <script>
+              steps = 10
+              max = 10
+              var barData = {
+               labels : [{% for item in labels %}
+                              "{{item}}",
+                          {% endfor %}],
+               datasets : [
+                  {
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        data : [{% for item in values %}
+                                  {{item}},
+                                {% endfor %}]
+                  }
+                  ]
+              }
+              var barData2 = {
+                labels : [{% for item in labels2 %}
+                              "{{item}}",
+                          {% endfor %}],
+                datasets : [
+                  {
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        data : [{% for item in values2 %}
+                                  {{item}},
+                                {% endfor %}]
+                  }
+                  ]
+              }
+              window.onload = function(){
+                var mychart = document.getElementById("chart").getContext("2d");
+                var mychart2 = document.getElementById("chart2").getContext("2d");
+
+                window.firtChart = new Chart(mychart).Bar(barData, {
+                  scaleOverride: true,
+                  scaleSteps: steps,
+                  scaleStepWidth: Math.ceil(max / steps),
+                  scaleStartValue: 0,
+                  scaleShowVerticalLines: true,
+                  scaleShowGridLines : true,
+                  barShowStroke : true,
+                  scaleShowLabels: true,
+                  responsive : true
+                });
+                window.secondChart = new Chart(mychart2).Bar(barData2, {
+                  scaleOverride: true,
+                  scaleSteps: steps,
+                  scaleStepWidth: Math.ceil(max / steps),
+                  scaleStartValue: 0,
+                  scaleShowVerticalLines: true,
+                  scaleShowGridLines : true,
+                  barShowStroke : true,
+                  scaleShowLabels: true,
+                  responsive : true
+                });
+              };
+            </script>
+            <h4>UAV's más utilizados</h4>
+            <span class="text-muted">Período Enero-Febrero</span>
+          </div>
+          <div class="col-xs-6 placeholder">
+            <canvas id="chart2" width="300" height="300"></canvas>
+            <h4>Misiones realizadas por mes</h4>
+            <span class="text-muted">Período Enero-Diciembre 2017</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Para los gráficos, es necesario este js-->
+    <script src='../static/js/Chart.min.js'></script>
+{% endblock %}

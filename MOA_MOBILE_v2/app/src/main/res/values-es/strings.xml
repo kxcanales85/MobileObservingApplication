@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">MOA</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Correo Electrónico</string>
+    <string name="prompt_username">Nombre de usuario</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Ingresar</string>
+    <string name="error_invalid_email">El email no es correcto</string>
+    <string name="error_invalid_password">La contraseña es demasiado corta</string>
+    <string name="error_incorrect_password">La contraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es obligatorio</string>
+    <string name="error_invalid_credentials">Las credenciales son incorrectas</string>
+    <string name="enroll_phone">Inscribir télefono</string>
+    <string name="allow_phone">Presione aquí para inscribir el teléfono</string>
+    <string name="error_scan">Error al escanear el código QR</string>
+    <string name="error_msge_scan">El código QR no se puede leer, inténtelo nuevamente.</string>
+    <!--string name="url_host">http://192.168.0.17</string  casa rocio   -->
+    <!--string name="url_host">http://158.170.208.95</string-->
+    <string name="url_host">http://172.20.10.3</string>
+    <string name="port_api">5000</string>
+    <string name="port_socket">4000</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="product_information">Información del Producto</string>
+    <string name="connection_loose">Estado: Producto no conectado</string>
+    <string name="sdk_version">DJI SDK Version: 4.4.1</string>
+    <string name="string_init">Estado: Producto no Conectado</string>
+    <string name="btn_open">Abrir</string>
+    <string name="btn_connect">Conectar</string>
+    <string name="no_mission_active_tittle">Sin misiones activas</string>
+    <string name="no_mission_active">El usuario actual no tiene misiones activas, vuelva a revisar más tarde.</string>
+
+</resources>

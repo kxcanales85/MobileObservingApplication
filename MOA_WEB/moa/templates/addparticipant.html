@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content%}
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li><a href="{{url_for('main')}}">Resumen <span class="sr-only">(current)</span></a></li>
+          <li class="active"><a href="{{url_for('missions')}}">Misiones</a></li>
+          <li><a href="#">Reportes</a></li>
+        </ul>
+        <ul class="nav nav-sidebar">
+          <li><a href="{{url_for('add_new_user')}}">Registrar usuario</a></li>
+          <li><a href="{{url_for('add_new_phone')}}">Registrar dispositivo móvil</a></li>
+          <li><a href="">Registrar nuevo mapa</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == 'message' %}
+                  <div class="alert alert-warning" role="alert">
+                {% else %}
+                  <div class="alert alert-{{ category }}" role="alert">
+                {% endif %}
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        <form action="" method="POST">
+          <div class="container">
+            <div class="row">
+              {% for participant in list_participant %}
+                <div class="list-group col-md-5 ">
+                  <label class="btn btn-default btn-block">
+                    <h5>{{participant['NAME_USER']}} {{participant['LASTNAME1_USER']}} {{participant['LASTNAME2_USER']}}</h5>
+                    
+                    <h6>{{participant['CITY_USER']}}</h6>
+                    <h6>{{participant['EMAIL_USER']}}</h6>
+                    <input type="checkbox" name="participante" value="{{participant['ID_USER']}}"> 
+                  </label>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class=" col-md-10 ">
+            <center><input  class="btn btn-primary custom" type="submit" value="Agregar"></center>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

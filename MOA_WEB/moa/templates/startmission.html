@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content%}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/index">Resumen</a></li>
+            <li class="active"><a href="{{url_for('missions')}}">Misiones</a></li>
+            <li><a href="#">Reportes</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="{{url_for('add_new_user')}}">Registrar usuario</a></li>
+            <li><a href="{{url_for('add_new_phone')}}">Registrar dispositivo móvil</a></li>
+            <li><a href="">Registrar nuevo mapa</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                {% if category == 'message' %}
+                  <div class="alert alert-warning" role="alert">
+                {% else %}
+                  <div class="alert alert-{{ category }}" role="alert">
+                {% endif %}
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <img src="{{ url_for('static', filename='map.png')}}" class="img-responsive" alt="Mapa Misión">
+            </div>
+            <div class="row">
+                <br>
+                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#console">Consola de Comandos</button>
+
+                <a href="#" class="btn btn-primary">Finalizar misión</a>
+                
+            </div>
+            <div class="row">
+                <br>
+                <div class="collapse panel panel-primary" id="console">
+                    <div class="panel-heading">Consola de Comandos</div>
+                    <div class="content">
+                        <div class="panel-body">
+                            <button value="all" id="all" class="btn btn-primary participantes">Todos</button>
+                            {% for participant in list_participant %}
+                                <button value={{participant['USERNAME_USER']}} id="{{participant['ID_USER']}}" class="btn btn-primary participantes">{{participant['USERNAME_USER']}}</button>
+                            {% endfor %}
+                            <br><br>
+                            <textarea class="form-control" style="color: white; background-color: black; resize:none;" id="chat" cols="100" rows="10"=""></textarea>
+                            <input class="form-control" id="text" size="100" placeholder="Ingrese el comando acá. Presione Enter para enviar." style="color: white; background-color: black"><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+      </div>
+    </div>
+{% endblock %}

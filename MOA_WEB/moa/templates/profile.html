@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content%}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/index">Resumen</a></li>
+            <li><a href="{{url_for('missions')}}">Misiones</a></li>
+            <li><a href="#">Reportes</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="{{url_for('add_new_user')}}">Registrar usuario</a></li>
+            <li><a href="{{url_for('add_new_phone')}}">Registrar dispositivo móvil</a></li>
+            <li><a href="">Registrar nuevo mapa</a></li>
+          </ul>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-15 ">
+              <div class="panel-body">
+                <div class="box box-info">
+                  <div class="box-body">
+                    <div class="col-sm-6">
+                      <div  align="center"> <img alt="User Pic" src="data:;base64,{{ image }}" id="profile-image1" class="img-circle img-responsive"> 
+                      </div>
+                        <br>
+                    </div>
+                    <div class="col-sm-6">
+                      <h4 style="color:#00b1b1;">{{current_user.get_data().get("name")}} {{current_user.get_data().get("lastname1")}}</h4></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+                    
+                    <div class="col-sm-5 col-xs-6 tital">Nombre:</div>
+                    <div class="col-sm-7 col-xs-6 ">{{current_user.get_data().get('name')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Apellidos:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('lastname1')}} {{current_user.get_data().get('lastname2')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Ciudad:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('city')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Región:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('state')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">País:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('country')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Correo electrónico:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('email')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Teléfono:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('phone')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Nombre de usuario:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('username')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Fecha última conexión:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('lastconnection')}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Dirección IP de la última conexión:</div>
+                    <div class="col-sm-7">{{current_user.get_data().get('lastip')}}</div>
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+            <center><a href="#" class="btn btn-primary">Editar Información</a></center>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

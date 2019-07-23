@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content%}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="/index">Resumen</a></li>
+            <li class="active"><a href="{{url_for('missions')}}">Misiones</a></li>
+            <li><a href="#">Reportes</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="{{url_for('add_new_user')}}">Registrar usuario</a></li>
+            <li><a href="{{url_for('add_new_phone')}}">Registrar dispositivo móvil</a></li>
+            <li><a href="">Registrar nuevo mapa</a></li>
+          </ul>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-15 ">
+              <div class="panel-body">
+                <div class="box box-info">
+                  <div class="box-body">
+                    
+                    <div class="col-sm-6">
+                      <h4 style="color:#00b1b1;">{{data_mission['NAME_MISSION']}}</h4></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr style="margin:5px 0 5px 0;">
+                    
+                    <div class="col-sm-5 col-xs-6 tital">Descripción:</div>
+                    <div class="col-sm-7 col-xs-6 ">{{data_mission['DESCRIPTION_MISSION']}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Fecha de creación:</div>
+                    <div class="col-sm-7">{{data_mission['DATE_CREATED_MISSION']}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Fecha de inicio:</div>
+                    <div class="col-sm-7">
+                    {% if data_mission['DATE_START_MISSION'] %}
+                        {{data_mission['DATE_START_MISSION']}}
+                    {% else %}
+                        Misión no iniciada
+                    {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Fecha de término:</div>
+                    <div class="col-sm-7">
+                    {% if data_mission['DATE_END_MISSION'] %}
+                        {{data_mission['DATE_END_MISSION']}}
+                    {% else %}
+                        {% if data_mission['DATE_START_MISSION'] %}
+                            Misión aún no finalizada
+                        {% else %}
+                            Misión no iniciada
+                        {% endif %}
+                    {% endif %}
+                    
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Estado:</div>
+                    <div class="col-sm-7">
+                    {% if data_mission['IS_ACTIVE_MISSION'] == 1 %}
+                        Activa
+                    {% else %}
+                        No activa
+                    {% endif %}
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Mapa:</div>
+                    <div class="col-sm-7">{{data_mission['NAME_MAP']}}</div>
+                    <div class="clearfix"></div>
+                    <div class="bot-border"></div>
+                    <div class="col-sm-5 col-xs-6 tital">Participantes:</div>
+                    <div class="clearfix"></div>
+                    {% for participante in data_mission['LIST_PARTICIPANT'] %}
+                        <div class="col-sm-5 col-xs-6 tital"></div>
+                        <a href="#" class="col-sm-7">{{participante['NAME_USER']}} {{participante['LASTNAME1_USER']}} {{participante['LASTNAME2_USER']}}</a>
+                    {% endfor %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <br>
+        <center>
+            {% if data_mission['IS_ACTIVE_MISSION'] == 1 %}
+                <a href="/mission/{{data_mission['NAME_MISSION']}}/deactivate" class="btn btn-primary">Desactivar Misión</a>
+                {% if data_mission['DATE_START_MISSION'] %}
+                    <a href="#" class="btn btn-primary" disabled>Iniciar Misión</a>
+                    <a href="#" class="btn btn-primary">Seguir misión</a>
+                    <a href="#" class="btn btn-primary" disabled>Asignar participantes</a>
+                {% else %}
+                    <a href="{{url_for("start_mission", name_mission=data_mission['NAME_MISSION'])}}" class="btn btn-primary">Iniciar Misión</a>
+                    <a href="#" class="btn btn-primary" disabled>Seguir misión</a>
+                    <a href="/mission/{{data_mission['NAME_MISSION']}}/addparticipant" class="btn btn-primary">Asignar participantes</a>
+                {% endif %}
+            {% else %}
+                <a href="/mission/{{data_mission['NAME_MISSION']}}/activate" class="btn btn-primary">Activar Misión</a>
+                <a href="#" class="btn btn-primary" disabled>Iniciar Misión</a>
+                <a href="#" class="btn btn-primary" disabled>Seguir misión</a>
+                <a href="#" class="btn btn-primary" disabled>Asignar participantes</a>
+            {% endif %}
+            <a href="/mission/{{data_mission['NAME_MISSION']}}/delete" class="btn btn-danger">Borrar Misión</a>
+        </center>
+        </div>
+      </div>
+    </div>
+{% endblock %}
